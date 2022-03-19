@@ -15,6 +15,7 @@ struct FeedView: View {
                     FeedCellView()
                 }//ForEach
             }//:LazyVStack
+            .padding([.top, .bottom])
         }//:ScrollView
     }//:Body
 }

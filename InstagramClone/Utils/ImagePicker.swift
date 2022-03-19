@@ -5,7 +5,6 @@
 //  Created by Shubham Kumar on 30/01/22.
 //
 
-import Foundation
 import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
@@ -17,8 +16,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
     }
-    
-    
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let picker = UIImagePickerController()

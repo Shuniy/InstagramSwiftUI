@@ -43,8 +43,8 @@ struct NotificationCellView: View {
                     .background(.blue)
                     .cornerRadius(5)
                     .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color.gray, lineWidth:1)
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(Color.gray, lineWidth:1)
                     )//:Overlay
             })//:Button
         }//:HStack

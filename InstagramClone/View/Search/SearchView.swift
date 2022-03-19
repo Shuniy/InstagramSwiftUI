@@ -16,6 +16,7 @@ struct SearchView: View {
     var body: some View {
         ScrollView {
             SearchBarView(text: $searchText, isEditing: $inSearchMode)
+                .padding()
             
             ZStack {
                 if inSearchMode {

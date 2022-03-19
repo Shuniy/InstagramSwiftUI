@@ -25,14 +25,14 @@ struct SearchBarView: View {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    })//:Overlay
+                    }.padding(5))//:Overlay
             Button(action: {
                 isEditing = false
                 text = ""
                 UIApplication.shared.endEditing()
             }, label: {
                 Text("Cancel")
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .padding(.trailing, 9)
                     .transition(.move(edge: .trailing))
                     .animation(.default, value: 1)
@@ -47,7 +47,6 @@ struct SearchBarView: View {
 //MARK: PREVIEW
 struct SearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-//        SearchBarView()
-        EmptyView()
+        SearchBarView(text: Binding.constant("Hello"), isEditing: Binding.constant(false))
     }
 }

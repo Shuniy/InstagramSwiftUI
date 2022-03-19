@@ -19,6 +19,7 @@ struct NotificationsView: View {
                     NotificationCellView()
                 }//:ForEach
             }//:LazyVStack
+            .padding()
         }//:ScroillView
     }
 }

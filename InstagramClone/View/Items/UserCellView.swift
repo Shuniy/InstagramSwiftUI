@@ -12,7 +12,7 @@ struct UserCellView: View {
     
     //MARK: BODY
     var body: some View {
-        HStack(spacing: 3) {
+        HStack(spacing: 5) {
             Image("ted")
                 .resizable()
                 .scaledToFill()
