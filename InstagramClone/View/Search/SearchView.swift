@@ -14,18 +14,21 @@ struct SearchView: View {
     
     //MARK: BODY
     var body: some View {
-        ScrollView {
-            SearchBarView(text: $searchText, isEditing: $inSearchMode)
-                .padding()
-            
-            ZStack {
-                if inSearchMode {
-                    UserListView()
-                } else {
-                    PostGridView()
-                }
-            }//:ZStack
-        }//:ScrollView
+        NavigationView{
+            ScrollView {
+                SearchBarView(text: $searchText, isEditing: $inSearchMode)
+                    .padding()
+                
+                ZStack {
+                    if inSearchMode {
+                        UserListView()
+                    } else {
+                        PostGridView()
+                    }
+                }//:ZStack
+            }//:ScrollView
+            .navigationTitle("Search")
+        }//:NavigationView
     }//:Body
 }
 

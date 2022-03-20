@@ -9,14 +9,18 @@ import SwiftUI
 
 struct FeedView: View {
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing:32) {
-                ForEach(0..<5) { item in
-                    FeedCellView()
-                }//ForEach
-            }//:LazyVStack
-            .padding([.top, .bottom])
-        }//:ScrollView
+        NavigationView {
+            ScrollView {
+                LazyVStack(spacing:32) {
+                    ForEach(0..<5) { item in
+                        FeedCellView()
+                    }//ForEach
+                }//:LazyVStack
+                .padding([.top, .bottom])
+            }//:ScrollView
+            .navigationTitle("Feeds")
+            .navigationBarTitleDisplayMode(.inline)
+        }//:NavigationView
     }//:Body
 }
 

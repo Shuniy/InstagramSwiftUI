@@ -15,6 +15,8 @@ struct RegisterView: View {
     @State var password: String = ""
     @State var confirmPassword: String = ""
     
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     //MARK: BODY
     var body: some View {
         NavigationView {
@@ -58,7 +60,7 @@ struct RegisterView: View {
                         .padding(.horizontal, 32)
                 }
                 Button {
-                    
+                    viewModel.register(withEmail: email, password: password, username: username, fullname: fullname)
                 } label: {
                     Text("Register")
                         .font(.headline)
@@ -81,9 +83,9 @@ struct RegisterView: View {
                     }//:HStack
                     .frame(width: 360, height: 50)
                 }
-            }
-        }//:VStack
-    }//:Navigation View
+            }//:VStack
+        }//:Navigation View
+    }
 }
 
 //MARK: PREVIEW

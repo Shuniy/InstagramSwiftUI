@@ -18,31 +18,35 @@ struct MainView: View {
                 .tabItem {
                     Image(systemName: "house")
                 }//:tabItem
+                .tag(0)
             
             //SearchView
             SearchView()
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                 }//:tabItem
+                .tag(1)
             
             //UploadPostView
             UploadPostView()
                 .tabItem {
                     Image(systemName: "plus.square")
                 }//:tabItem
+                .tag(2)
             
             //NotificationsView
             NotificationsView()
                 .tabItem {
                     Image(systemName: "heart")
                 }//:tabItem
+                .tag(3)
             
             //ProfileView
             ProfileView()
                 .tabItem {
                     Image(systemName: "person")
                 }//:tabItem
-            
+                .tag(4)
         }//:TabView
     }//:Body
 }

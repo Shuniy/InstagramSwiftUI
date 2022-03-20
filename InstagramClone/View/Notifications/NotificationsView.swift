@@ -12,15 +12,18 @@ struct NotificationsView: View {
     
     //MARK: BODY
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(0..<10) {
-                    _ in
-                    NotificationCellView()
-                }//:ForEach
-            }//:LazyVStack
-            .padding()
-        }//:ScroillView
+        NavigationView {
+            ScrollView {
+                LazyVStack {
+                    ForEach(0..<10) {
+                        _ in
+                        NotificationCellView()
+                    }//:ForEach
+                }//:LazyVStack
+                .padding()
+            }//:ScroillView
+            .navigationTitle("Notifications")
+        }//:NavigationView
     }
 }
 
