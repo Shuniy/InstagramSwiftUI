@@ -43,6 +43,7 @@
 		C34803CD27E608DD00823BF7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34803CC27E608DD00823BF7 /* CustomTextField.swift */; };
 		C34803CF27E60B3200823BF7 /* CustomSecureField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34803CE27E60B3200823BF7 /* CustomSecureField.swift */; };
 		C34803D127E628C000823BF7 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34803D027E628C000823BF7 /* ForgotPasswordView.swift */; };
+		C38278BA27E6F96700907791 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C38278B927E6F96700907791 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		C34803CC27E608DD00823BF7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C34803CE27E60B3200823BF7 /* CustomSecureField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSecureField.swift; sourceTree = "<group>"; };
 		C34803D027E628C000823BF7 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		C38278B927E6F96700907791 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				C31E16A227A3EC7F009C2F98 /* Model */,
 				C31E16A127A3EC74009C2F98 /* App */,
 				C31E166C27A3AB44009C2F98 /* Assets.xcassets */,
+				C38278B927E6F96700907791 /* GoogleService-Info.plist */,
 				C31E166E27A3AB44009C2F98 /* Preview Content */,
 			);
 			path = InstagramClone;
@@ -447,6 +450,7 @@
 			files = (
 				C31E167027A3AB44009C2F98 /* Preview Assets.xcassets in Resources */,
 				C31E166D27A3AB44009C2F98 /* Assets.xcassets in Resources */,
+				C38278BA27E6F96700907791 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
