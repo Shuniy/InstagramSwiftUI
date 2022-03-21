@@ -23,7 +23,7 @@ struct CustomSecureField: View {
             }
             
             HStack(spacing: 15) {
-               Image(systemName: imageName)
+                Image(systemName: imageName)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20, alignment: .center)
@@ -35,10 +35,10 @@ struct CustomSecureField: View {
         }//:ZStack
         .frame(width: 360, height: 50)
         .background(ZStack {
-            Color(.init(white: 0.9, alpha: 0.7))
+            Color.secondary.opacity(0.3)
                 .cornerRadius(8)
                 .overlay(RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color(.init(white: 0.7, alpha: 0.7)), lineWidth: 1))
+                    .stroke(Color.secondary.opacity(0.8), lineWidth: 1))
         })
     }
 }

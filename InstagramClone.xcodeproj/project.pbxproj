@@ -46,6 +46,7 @@
 		C38278D127E70F3800907791 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C38278D027E70F3800907791 /* FirebaseFirestoreSwift-Beta */; };
 		C38278D327E70F3800907791 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C38278D227E70F3800907791 /* FirebaseStorage */; };
 		C38278D527E70F3800907791 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = C38278D427E70F3800907791 /* FirebaseStorageSwift-Beta */; };
+		C3905F4727E8CA1300EBAE00 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3905F4627E8CA1300EBAE00 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		C38278B927E6F96700907791 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C38278C727E6FC1C00907791 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		C38278C927E70DA100907791 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		C3905F4627E8CA1300EBAE00 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 		C38278C627E6FC0000907791 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C3905F4627E8CA1300EBAE00 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				C31E16C927A3F0CA009C2F98 /* FeedView.swift in Sources */,
 				C34803C927E6077C00823BF7 /* RegisterView.swift in Sources */,
 				C31E16CB27A3F0E0009C2F98 /* UploadPostView.swift in Sources */,
+				C3905F4727E8CA1300EBAE00 /* ProfileViewModel.swift in Sources */,
 				C31E166B27A3AB42009C2F98 /* ContentView.swift in Sources */,
 				C315F5E227A67581005C1E61 /* UserCellView.swift in Sources */,
 				C31E16CF27A3F0FE009C2F98 /* SearchView.swift in Sources */,

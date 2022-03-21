@@ -10,13 +10,14 @@ import SwiftUI
 struct ProfileView: View {
     //MARK: PROPERTIES
     @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var viewModel = ProfileViewModel()
     
     //MARK: BODY
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 32) {
-                    ProfileHeaderView()
+                    ProfileHeaderView(viewModel: viewModel)
                         .padding()
                     PostGridView()
                 }//:VStack

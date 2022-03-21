@@ -30,6 +30,5 @@ struct NotificationsView: View {
 //MARK: PREVIEW
 struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationsView()
-    }
+        NotificationsView()    }
 }

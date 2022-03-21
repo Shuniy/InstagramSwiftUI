@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct FeedView: View {
+    //MARK: PROPERTIES
+    
+    //MARK: BODY
     var body: some View {
         NavigationView {
             ScrollView {
