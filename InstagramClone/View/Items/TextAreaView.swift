@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct TextAreaView: View {
-    //MARK: PROPERTIES
+struct TextArea: View {
     @Binding var text: String
     let placeholder: String
     
@@ -18,25 +17,17 @@ struct TextAreaView: View {
         UITextView.appearance().backgroundColor = .clear
     }
     
-    //MARK: BODY
     var body: some View {
         ZStack(alignment: .topLeading) {
             if text.isEmpty {
                 Text(placeholder)
-                    .foregroundColor(Color(uiColor: UIColor.placeholderText))
+                    .foregroundColor(Color(UIColor.placeholderText))
                     .padding(.horizontal, 8)
                     .padding(.vertical, 12)
             }
             TextEditor(text: $text)
                 .padding(4)
-        }//:ZStack
+        }
         .font(.body)
-    }
-}
-
-//MARK: PREVIEW
-struct TextAreaView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextAreaView(text: Binding.constant("Hello World"), placeholder: "Enter Something...")
     }
 }

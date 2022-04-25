@@ -8,23 +8,17 @@
 import SwiftUI
 
 struct FeedView: View {
-    //MARK: PROPERTIES
+    @ObservedObject var viewModel = FeedViewModel()
     
-    //MARK: BODY
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack(spacing:32) {
-                    ForEach(0..<5) { item in
-                        FeedCellView()
-                    }//ForEach
-                }//:LazyVStack
-                .padding([.top, .bottom])
-            }//:ScrollView
-            .navigationTitle("Feeds")
-            .navigationBarTitleDisplayMode(.inline)
-        }//:NavigationView
-    }//:Body
+        ScrollView {
+            LazyVStack(spacing: 32) {
+                ForEach(viewModel.posts) { post in
+                    FeedCell(viewModel: FeedCellViewModel(post: post))
+                }
+            }
+        }
+    }
 }
 
 struct FeedView_Previews: PreviewProvider {

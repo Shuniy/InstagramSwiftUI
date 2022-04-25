@@ -8,27 +8,17 @@
 import SwiftUI
 
 struct NotificationsView: View {
-    //MARK: PROPERTIES
+    @ObservedObject var viewModel = NotificationsViewModel()
     
-    //MARK: BODY
     var body: some View {
-        NavigationView {
-            ScrollView {
-                LazyVStack {
-                    ForEach(0..<10) {
-                        _ in
-                        NotificationCellView()
-                    }//:ForEach
-                }//:LazyVStack
-                .padding()
-            }//:ScroillView
-            .navigationTitle("Notifications")
-        }//:NavigationView
+        ScrollView {
+            LazyVStack {
+                ForEach(viewModel.notifications) { notification in
+                    NotificationCell(viewModel: NotificationsCellViewModel(notification: notification))
+                        .padding(.top)
+                    
+                }
+            }
+        }
     }
-}
-
-//MARK: PREVIEW
-struct NotificationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationsView()    }
 }

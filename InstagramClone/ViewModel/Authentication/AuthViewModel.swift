@@ -9,81 +9,70 @@ import SwiftUI
 import Firebase
 
 class AuthViewModel: ObservableObject {
-    @Published var sessionUser: Firebase.User?
+    @Published var userSession: Firebase.User?
     @Published var currentUser: User?
-    
-    init() {
-        sessionUser = Auth.auth().currentUser
-        fetchUser()
-        print("User fetched!", sessionUser!)
-    }
     
     static let shared = AuthViewModel()
     
+    init() {
+        userSession = Auth.auth().currentUser
+        fetchUser()
+    }
+    
     func login(withEmail email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { [unowned self] result, error in
-            if let error = error {
-                print(error.localizedDescription)
+        Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
+            if let err = err {
+                print(err.localizedDescription)
                 return
             }
-            guard let user = result?.user else {
-                return
-            }
-            self.sessionUser = user
-            fetchUser()
-            print("User logged In!")
+            
+            guard let user = result?.user else { return }
+            self.userSession = user
+            self.fetchUser()
+            
         }
     }
     
     func register(withEmail email: String, password: String, username: String, fullname: String) {
-        print("Registration Started!")
-        Auth.auth().createUser(withEmail: email, password: password) { [unowned self] result, error in
-            if let error = error {
-                print(error.localizedDescription)
+        Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+            if let err = err {
+                print(err.localizedDescription)
                 return
             }
             
-            guard let user = result?.user else {
-                return
-            }
-            let data = ["email":email,
-                        "username":username,
-                        "fullname":fullname,
+            guard let user = result?.user else { return }
+            
+            let data = ["email": email,
+                        "username": username,
+                        "fullname": fullname,
                         "uid": user.uid]
-            Firestore.firestore().collection("users")
-                .document(user.uid)
-                .setData(data) { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
-                    }
-                    print("User Created!")
+            
+            Firestore.firestore().collection("users").document(user.uid).setData(data) { err in
+                if let err = err {
+                    print(err.localizedDescription)
+                    return
                 }
-            self.sessionUser = user
-            fetchUser()
+                self.userSession = user
+                self.fetchUser()
+                print("DEBUG: USER CREATED")
+            }
         }
     }
     
     func logout() {
-        self.sessionUser = nil
+        self.userSession = nil
         try? Auth.auth().signOut()
     }
     
     func fetchUser() {
-        guard let uid = sessionUser?.uid else {
-            print("Session user id not found!")
-            return
-        }
+        guard let uid = userSession?.uid else { return }
         
-        Firestore.firestore().collection("users").document(uid).getDocument { snap, error in
-            if let error = error {
-                print("Error: ", error.localizedDescription)
+        Firestore.firestore().collection("users").document(uid).getDocument { (snap, err) in
+            if let err = err {
+                print(err.localizedDescription)
                 return
             }
-            guard let user = try? snap?.data(as: User.self) else {
-                print("Can't decode snapshot to User")
-                return
-            }
+            guard let user = try? snap?.data(as: User.self) else { return }
             self.currentUser = user
         }
     }

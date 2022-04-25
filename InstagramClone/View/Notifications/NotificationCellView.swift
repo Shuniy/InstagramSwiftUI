@@ -6,54 +6,72 @@
 //
 
 import SwiftUI
+import Kingfisher
 
-struct NotificationCellView: View {
-    //MARK: PROPETIES
+struct NotificationCell: View {
+    @ObservedObject var viewModel: NotificationsCellViewModel
     
-    //MARK: Body
+    init(viewModel: NotificationsCellViewModel) {
+        self.viewModel = viewModel
+    }
+    
+    var didFollow: Bool {
+        return viewModel.notification.didFollow ?? false
+    }
+    
     var body: some View {
         HStack {
-            Image("ted")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 40, height: 40)
-                .clipped()
-                .clipShape(Circle())
-            
-            HStack(spacing:5) {
-                Text("Shubham ")
-                    .font(.system(size: 15, weight: .semibold))
-                +
-                Text("has followed you")
-                    .font(.system(size: 15))
-                Text("2H")
-                    .foregroundColor(.gray)
-                    .font(.system(size: 13))
-            }//:HStack
-            .padding(.horizontal, 5)
-            
-            
+            if let user = viewModel.notification.user {
+                
+                NavigationLink(destination: ProfileView(user: user)) {
+                    if let imageURL = viewModel.notification.profileImageURL{
+                        KFImage(URL(string: imageURL))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
+                    }
+                    
+                    Text(viewModel.notification.username)
+                        .font(.system(size: 14, weight: .semibold))
+                    +
+                    Text(viewModel.notification.type.notificationsMessage)
+                        .font(.system(size: 15))
+                    +
+                    Text(" \(viewModel.timestamp)")
+                        .foregroundColor(.secondary)
+                        .font(.system(size: 12))
+                }
+                
+            }
             Spacer()
-            
-            Button(action: {}, label: {
-                Text("Follow")
-                    .font(.system(size: 15, weight:.semibold))
-                    .frame(width: 100, height: 32)
-                    .foregroundColor(.white)
-                    .background(.blue)
-                    .cornerRadius(5)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.gray, lineWidth:1)
-                    )//:Overlay
-            })//:Button
-        }//:HStack
-    }//:Body
-}
-
-//MARK: PREIVEW
-struct NotificationCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        NotificationCellView()
+            if viewModel.notification.type == .follow {
+                Button {
+                    didFollow ? viewModel.unfollow() : viewModel.follow()
+                } label: {
+                    
+                    Text(didFollow ? "Following" : "Follow Back")
+                        .font(.system(size: 14, weight: .semibold))
+                        .frame(width: 100, height: 32)
+                        .foregroundColor(didFollow ? .black : .white)
+                        .background(didFollow ? Color.white : Color.blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 3)
+                                .stroke(Color.secondary, lineWidth: didFollow ? 1 : 0)
+                        )
+                }.cornerRadius(3)
+            }
+            else {
+                if let post = viewModel.notification.post {
+                    NavigationLink(destination: ScrollView {FeedCell(viewModel: FeedCellViewModel(post: post))}) {
+                        KFImage(URL(string: post.imageURL))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 40, height: 40)
+                            .clipped()
+                    }
+                }
+            }
+        }.padding(.horizontal)
     }
 }

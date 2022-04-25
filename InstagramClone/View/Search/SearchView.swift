@@ -8,33 +8,23 @@
 import SwiftUI
 
 struct SearchView: View {
-    //MARK: PREOPERTIES
     @State var searchText = ""
     @State var inSearchMode = false
+    @ObservedObject var viewModel = SearchViewModel()
     
-    //MARK: BODY
     var body: some View {
-        NavigationView{
-            ScrollView {
-                SearchBarView(text: $searchText, isEditing: $inSearchMode)
-                    .padding()
-                
-                ZStack {
-                    if inSearchMode {
-                        UserListView()
-                    } else {
-                        PostGridView()
-                    }
-                }//:ZStack
-            }//:ScrollView
-            .navigationTitle("Search")
-        }//:NavigationView
-    }//:Body
-}
-
-//MARK: PREVIEW
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
+        ScrollView {
+            SearchBar(text: $searchText, isEditing: $inSearchMode)
+                .padding()
+            
+            ZStack {
+                if inSearchMode {
+                    UserListView(viewModel: viewModel, searchText: $searchText)
+                }
+                else {
+                    PostGridView(config: .explore)
+                }
+            }
+        }
     }
 }

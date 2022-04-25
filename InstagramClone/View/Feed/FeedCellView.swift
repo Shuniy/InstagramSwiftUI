@@ -6,82 +6,104 @@
 //
 
 import SwiftUI
+import Kingfisher
 
-struct FeedCellView: View {
-    //MARK: PROPERTIES
+struct FeedCell: View {
+    @ObservedObject var viewModel: FeedCellViewModel
     
-    //MARK: BODY
+    var didLike: Bool {
+        return viewModel.post.didLike ?? false
+    }
+    
+    init(viewModel: FeedCellViewModel) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(spacing: 15) {
-                Image("ted")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 36, height: 36)
-                    .clipped()
-                    .clipShape(Circle())
-                Text("Shubham")
-            }//:HStack
-            .padding(.horizontal, 10)
+            if let user = viewModel.post.user {
+                NavigationLink(destination: ProfileView(user: user)) {
+                    HStack {
+                        if let imageURL = viewModel.post.ownerImageURL{
+                            KFImage(URL(string: imageURL))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 36, height: 36)
+                                .clipped()
+                                .cornerRadius(18)
+                        }
+                        else {
+                            Image("profile-placeholder")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 36, height: 36)
+                                .clipped()
+                                .cornerRadius(18)
+                        }
+                        Text(viewModel.post.ownerUsername)
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    .padding([.leading, .bottom], 8)
+                }
+            }
             
-            Image("ted")
+            KFImage(URL(string: viewModel.post.imageURL))
                 .resizable()
                 .scaledToFill()
-                .frame(maxHeight:440)
+                .frame(maxHeight: 440)
                 .clipped()
             
-            HStack(spacing:16) {
-                Image(systemName: "heart")
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(.primary)
-                    .frame(width: 20, height: 20)
-                    .font(.system(size: 20))
-                    .padding(5)
-                Image(systemName: "bubble.right")
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundColor(.primary)
-                    .frame(width: 20, height: 20)
-                    .font(.system(size: 20))
-                    .padding(5)
+            HStack(spacing: 16) {
+                Button {
+                    didLike ? viewModel.unlike() : viewModel.like()
+                } label: {
+                    Image(systemName: didLike ? "heart.fill" : "heart")
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundColor(didLike ? .red : .primary)
+                        .frame(width: 20, height: 20)
+                        .font(.system(size: 20))
+                        .padding(4)
+                }
+                
+                if let post = viewModel.post {
+                    NavigationLink(destination: CommentsView(post: post)) {
+                        Image(systemName: "bubble.right")
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundColor(.primary)
+                            .frame(width: 20, height: 20)
+                            .font(.system(size: 20))
+                            .padding(4)
+                    }
+                }
                 Image(systemName: "paperplane")
                     .resizable()
                     .scaledToFill()
                     .foregroundColor(.primary)
                     .frame(width: 20, height: 20)
                     .font(.system(size: 20))
-                    .padding(5)
-            }//:HStack
-            .padding(.leading, 5)
+                    .padding(4)
+                
+            }
+            .padding(.leading, 4)
             .foregroundColor(.primary)
             
-            Text("25 Likes")
-                .font(.system(size: 15, weight: .semibold))
-                .padding(.leading, 10)
-                .padding(.bottom, 1)
-            HStack {
-                Text("Shubham")
-                    .font(.system(size: 15, weight: .semibold))
-                Spacer(minLength: 10)
-                Text("Look Great!")
-                    .font(.system(size: 15))
-            }//:HStack
-            .padding(.vertical, 1)
-            .padding(.horizontal, 10)
+            Text(viewModel.likeText)
+                .font(.system(size: 14, weight: .semibold))
+                .padding(.leading, 8)
+                .padding(.bottom, 0.5)
             
-            Text("2H").padding(.horizontal, 10)
-                .font(.system(size: 15))
+            HStack {
+                Text(viewModel.post.ownerUsername).font(.system(size: 14, weight: .semibold)) + Text(" \(viewModel.post.caption)").font(.system(size: 14))
+            }.padding(.horizontal, 8)
+            
+            Text(viewModel.timestamp)
+                .font(.system(size: 14))
                 .foregroundColor(.secondary)
+                .padding(.leading, 8)
                 .padding(.top, -2)
             
-        }//:VStack
-    }//:Body
-}
-
-//MARK: PREVIEW
-struct FeedCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        FeedCellView()
+        }
     }
 }

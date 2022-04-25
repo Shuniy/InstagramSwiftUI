@@ -26,13 +26,11 @@ struct SignInView: View {
             VStack(spacing: 0) {
                 CustomTextField(text: $email, placeholder: Text("Email"), imageName: "envelope")
                     .padding()
-                    .background()
                     .cornerRadius(10)
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 32)
                 CustomSecureField(text: $password, placeholder: Text("Password"), imageName: "lock")
                     .padding()
-                    .background()
                     .cornerRadius(10)
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 32)

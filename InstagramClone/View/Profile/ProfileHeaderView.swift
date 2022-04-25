@@ -9,66 +9,84 @@ import SwiftUI
 import Kingfisher
 
 struct ProfileHeaderView: View {
-    //MARK: PROPERTIES
     @State var selectedImage: UIImage?
     @State var userImage: Image? = Image("profile-placeholder")
     @State var imagePickerRepresented = false
     @ObservedObject var viewModel: ProfileViewModel
     
-    //MARK: BODY
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 ZStack {
                     if let imageURL = viewModel.user.profileImageURL {
-                        KFImage(URL(string: imageURL))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 80, height: 80, alignment: .center)
-                            .clipShape(Circle())
-                    } else {
+                        Button {
+                            self.imagePickerRepresented.toggle()
+                        } label: {
+                            KFImage(URL(string: imageURL))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                                .padding(.leading, 16)
+                        }.sheet(isPresented: $imagePickerRepresented, onDismiss: loadImage, content: {
+                            ImagePicker(image: $selectedImage)
+                        })
+                        
+                    }
+                    else {
                         Button {
                             self.imagePickerRepresented.toggle()
                         } label: {
                             userImage?
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 80, height: 80, alignment: .center)
+                                .frame(width: 80, height: 80)
                                 .clipShape(Circle())
-                        }.sheet(isPresented: $imagePickerRepresented) {
-                            loadImage()
-                        } content: {
+                                .padding(.leading, 16)
+                        }.sheet(isPresented: $imagePickerRepresented, onDismiss: loadImage, content: {
                             ImagePicker(image: $selectedImage)
-                        }
+                        })
+                        
                     }
                 }
-                Spacer()
+                
+                
                 HStack(spacing: 16) {
-                    UserStatsView(value: 210, title: "Posts")
-                    UserStatsView(value: 211, title: "Followers")
-                    UserStatsView(value: 212, title: "Following")
-                }//:HStack
-            }//:HStack
-            Text(viewModel.user.fullname)
+                    UserStats(value: viewModel.user.stats?.posts ?? 0, title: "Posts")
+                    UserStats(value: viewModel.user.stats?.followers ?? 0, title: "Followers")
+                    UserStats(value: viewModel.user.stats?.following ?? 0, title: "Following")
+                    
+                }
+                
+            }
+            Text(viewModel.user.fullname )
                 .font(.system(size: 15, weight: .bold))
-        }//:VStack
+                .padding([.leading, .top])
+                .padding(.leading, 8)
+            
+            if let bio = viewModel.user.bio{
+                Text(bio)
+                    .font(.system(size: 15))
+                    .padding(.leading)
+                    .padding(.top, 1)
+            }
+            HStack {
+                Spacer()
+                ProfileButtonView(viewModel: viewModel)
+                Spacer()
+            }.padding(.top)
+            
+            
+        }
     }
 }
 
 extension ProfileHeaderView {
     func loadImage() {
-        guard let selectedImage = selectedImage else {
-            return
+        guard let selectedImage = selectedImage else { return }
+        userImage = Image(uiImage: selectedImage)
+        viewModel.changeProfileImage(image: selectedImage) { (_) in
+            print("DEBUG: Uploaded Image")
         }
-        viewModel.changeProfileImage(image: selectedImage) { image in
-            userImage = image
-        }
-    }
-}
-
-//MARK: PREVIEW
-struct ProfileHeaderView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileHeaderView(viewModel: ProfileViewModel())
     }
 }

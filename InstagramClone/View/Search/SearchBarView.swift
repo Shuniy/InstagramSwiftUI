@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-struct SearchBarView: View {
-    //MARK: PREOPERTIES
+struct SearchBar: View {
     @Binding var text: String
     @Binding var isEditing: Bool
     
-    //MARK: BODY
     var body: some View {
         HStack {
             TextField("Search...", text: $text)
-                .padding(9)
-                .padding(.horizontal, 25)
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(9)
+                .padding(8)
+                .padding(.horizontal, 24)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
                 .overlay(
                     HStack {
                         Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                    }.padding(5))//:Overlay
+                    }
+                )
+            
             Button(action: {
                 isEditing = false
                 text = ""
@@ -33,20 +33,13 @@ struct SearchBarView: View {
             }, label: {
                 Text("Cancel")
                     .foregroundColor(.primary)
-                    .padding(.trailing, 9)
-                    .transition(.move(edge: .trailing))
-                    .animation(.default, value: 1)
-            })//:Button
-        }//:HStack
+            })
+            .padding(.trailing, 8)
+            .transition(.move(edge: .trailing))
+            .animation(.default)
+        }
         .onTapGesture {
             isEditing = true
         }
-    }//:Body
-}
-
-//MARK: PREVIEW
-struct SearchBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBarView(text: Binding.constant("Hello"), isEditing: Binding.constant(false))
     }
 }

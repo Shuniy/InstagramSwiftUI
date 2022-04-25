@@ -8,42 +8,17 @@
 import SwiftUI
 
 struct ProfileView: View {
-    //MARK: PROPERTIES
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @ObservedObject var viewModel = ProfileViewModel()
+    let user: User
     
-    //MARK: BODY
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 32) {
-                    ProfileHeaderView(viewModel: viewModel)
-                        .padding()
-                    PostGridView()
-                }//:VStack
-                .padding(.top)
-            }//:ScrollView
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        authViewModel.logout()
-                    } label: {
-                        Text("Log Out")
-                    }
-                }//:ToolBarItem
-            }//:toolbar
-        }//:NavigationView
-    }
-    
-    //MARK: FUNCTIONS
-    
-}
-
-//MARK: PREVIEW
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
+        ScrollView {
+            VStack(spacing: 32) {
+                ProfileHeaderView(viewModel: ProfileViewModel(user: user))
+                if let currentProfileID = user.id {
+                    PostGridView(config: .profile(currentProfileID))
+                }
+            }
+            .padding(.top)
+        }
     }
 }

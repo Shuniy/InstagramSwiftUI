@@ -22,7 +22,6 @@ struct ForgotPasswordView: View {
                 .foregroundColor(.primary)
             CustomTextField(text: $email, placeholder: Text("Email"), imageName: "envelope")
                 .padding()
-                .background()
                 .cornerRadius(10)
                 .foregroundColor(.secondary)
                 .padding(.horizontal, 32)
